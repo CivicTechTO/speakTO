@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 20160917153146) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "video_uploads", force: :cascade do |t|
     t.string   "video"
     t.datetime "created_at", null: false

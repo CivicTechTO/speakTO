@@ -18,7 +18,7 @@ class LanguageProcessor
 
   def get_keywords
     url = '/text/TextGetRankedKeywords'
-    parameters = "apikey=#{@api_key}&outputMode=#{@output}&text=#{@text}"
+    parameters = "apikey=#{@api_key}&outputMode=#{@output}&sentiment=1&text=#{@text}"
     json_response = make_api_call "#{@base_url}#{url}?#{parameters}"
     parse_keywords(json_response)
   end
@@ -33,14 +33,22 @@ class LanguageProcessor
   def parse_concepts(json_response)
     results = JSON.parse(json_response)
     results['concepts'].collect do |concept|
-      concept['text']
+      {
+        text: concept['text'],
+        relevance: concept['relevance'].to_f
+      }
     end
   end
 
   def parse_keywords(json_response)
     results = JSON.parse(json_response)
     results['keywords'].collect do |keyword|
-      keyword['text']
+      {
+        text: keyword['text'],
+        relevance: keyword['relevance'],
+        sentiment: keyword['sentiment']['type'],
+        sentiment_strength: keyword['sentiment']['score']
+      }
     end
   end
 end
