@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Tplhack</title>
+    <title>Deputations@TPLHacks</title>
     <%= csrf_meta_tags %>
+
+    <link href="https://fonts.googleapis.com/css?family=Raleway:600" rel="stylesheet">
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <body class='<%= controller.controller_name %>'>
     <%= yield %>
   </body>
 </html>

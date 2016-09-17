@@ -11,6 +11,6 @@ class Transcriber
     response = HTTParty.post(
                              @base_url, 
                              headers: { Authorization: "Bearer #{@api}"},
-                             query: { })
+                             query: { j})
   end
 end
