@@ -31,7 +31,6 @@ $(document).ready(function() {
 	var fileDuration;
 
 	rd.onload = function(e) {
-
 	  var blob = new Blob([e.target.result], {
 	      type: mime
 	    }),
@@ -47,23 +46,23 @@ $(document).ready(function() {
 	  if (fileDuration > MAX_FILE_DURATION) {
 	  	return;
 	  }
+      submitFile(blob);
 	};
-	rd.readAsArrayBuffer(file);
 
-    submitFile();
+    rd.readAsArrayBuffer(file);
   });
 
-  function submitFile() {
+  function submitFile(blob) {
+    var fd = new FormData();
+    fd.append('fname', 'video.mp4');
+    fd.append('data', blob);
+
     $.ajax({
-      url: "upload",
+      url: "/upload",
       type: "POST",
-      xhr: function() {
-      	myXhr = $.ajaxSettings.xhr();
-        if(myXhr.upload){
-          myXhr.upload.addEventListener('progress', progressHandlingFunction, false);
-        }
-        return myXhr;
-      },
+      data: fd,
+      processData: false,
+      contentType: false,
       success: function() {
       	// send success to notif
       	return true;
@@ -73,7 +72,7 @@ $(document).ready(function() {
       	console.log("File Upload Error! " + e);
       	return true;
       }
-    }, 'json');
+    });
   }
 
   function progressHandlingFunction() {
