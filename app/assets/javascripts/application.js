@@ -23,7 +23,10 @@ $(document).ready(function() {
   $('#videoContainer').change(function(e) {
     var filePath = $(this)[0].value;
     var fileName = filePath.split(/(\\|\/)/g).pop();
-    $('.notifications').text(fileName);
+    $('.notifications').text(fileName).fadeIn('slow');
+    setTimeout(function() {
+      $('.notifications').fadeOut('slow');
+    }, 3000);
 
     var file = e.target.files[0];
 	var mime = file.type;
@@ -64,12 +67,25 @@ $(document).ready(function() {
       processData: false,
       contentType: false,
       success: function() {
-      	// send success to notif
+      	$('.flashNotif').slideDown('slow')
+      	  .text('Upload successful!')
+      	  .removeClass('.success .fail')
+      	  .addClass('success');
+
+        setTimeout(function () {
+          $('.flashNotif').fadeOut('slow');
+        }, 2400);
       	return true;
       },
       error: function (e) {
-      	// send error to notif
-      	console.log("File Upload Error! " + e);
+      	$('.flashNotif').slideDown('slow')
+      	  .text('Upload error!')
+      	  .removeClass('.success .fail')
+      	  .addClass('fail');
+
+      	setTimeout(function () {
+          $('.flashNotif').fadeOut('slow');
+        }, 2400);
       	return true;
       }
     });
