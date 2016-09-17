@@ -1,16 +1,18 @@
 class Transcriber
-  include HTTParty
+  OUTPUT_FILE = './wit_output.txt'
 
-  def initialize(audio_filepath)
-    @audio_filepath = audio_filepath
-    @base_url = 'https://api.wit.ai/message'
-    @api_key = 'KGYGTEHJJZERAUVBPDQULMGBERGI5E4E'
+  def self.call(audio_filepath)
+    run_python_script(audio_filepath)
+    read_output_file
   end
 
-  def call
-    response = HTTParty.post(
-                             @base_url, 
-                             headers: { Authorization: "Bearer #{@api}"},
-                             query: { j})
+  def run_python_script(audio_filepath)
+    %x(python transcribe.py #{audio_filepath} > #{OUTPUT_FILE})
   end
+
+  def read_output_file
+    text = File.read(OUTPUT_FILE)
+    binding.pry
+  end
+
 end

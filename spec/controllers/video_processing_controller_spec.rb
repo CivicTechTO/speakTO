@@ -20,24 +20,24 @@ RSpec.describe VideoProcessingController, type: :controller do
       end
     end
 
-    describe "#keywords" do
-      it "accepts text file and returns keywords" do
-        get :keywords, params: { text_filepath: text_filepath }, format: :json
+    # describe "#keywords" do
+    #   it "accepts text file and returns keywords" do
+    #     get :keywords, params: { text_filepath: text_filepath }, format: :json
 
-        expect(response.status).to eq(200)
-        expect(response.content_type).to eq("application/json")
-        expect(JSON.parse(response.body)["results"]['keywords']).to_not be_nil
-      end
-    end
+    #     expect(response.status).to eq(200)
+    #     expect(response.content_type).to eq("application/json")
+    #     expect(JSON.parse(response.body)["results"]['keywords']).to_not be_nil
+    #   end
+    # end
 
-    describe "#concepts" do
-      it "accepts text file and returns concepts" do
-        get :concepts, params: { text_filepath: text_filepath }, format: :json
+    # describe "#concepts" do
+    #   it "accepts text file and returns concepts" do
+    #     get :concepts, params: { text_filepath: text_filepath }, format: :json
 
-        expect(response.status).to eq(200)
-        expect(response.content_type).to eq("application/json")
-        expect(JSON.parse(response.body)["results"]['concepts']).to_not be_nil
-      end
-    end
+    #     expect(response.status).to eq(200)
+    #     expect(response.content_type).to eq("application/json")
+    #     expect(JSON.parse(response.body)["results"]['concepts']).to_not be_nil
+    #   end
+    # end
   end
 end
