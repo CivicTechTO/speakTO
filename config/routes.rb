@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
-  root 'video_upload#new'
+  root 'deputations#new'
 
-  get 'transcribe', to: 'video_processing#transcribe'
-  get 'keywords', to: 'video_processing#keywords'
-  get 'concepts', to: 'video_processing#concepts'
+  get 'transcribe', to: 'audio_processing#transcribe'
+  get 'keywords', to: 'audio_processing#keywords'
+  get 'concepts', to: 'audio_processing#concepts'
 
   post 'upload', to: :upload, controller: 'video_upload'
 end

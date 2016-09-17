@@ -1,4 +1,4 @@
-class VideoProcessingController < ApplicationController
+class AudioProcessingController < ApplicationController
   def transcribe
     audio_filepath = params['audio_filepath']
     scriber = Transcriber.new(audio_filepath)

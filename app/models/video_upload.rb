@@ -1,2 +1,0 @@
-class VideoUpload < ApplicationRecord
-end

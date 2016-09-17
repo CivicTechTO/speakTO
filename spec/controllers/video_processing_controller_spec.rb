@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe VideoProcessingController, type: :controller do
+RSpec.describe AudioProcessingController, type: :controller do
   context "valid audio file" do
     let(:audio_filepath) do
       Rails.root.join("spec", "fixtures", "call_everybody.wav")

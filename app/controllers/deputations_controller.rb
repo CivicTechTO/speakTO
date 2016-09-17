@@ -1,7 +1,11 @@
-class VideoUploadController < ApplicationController
+class DeputationsController < ApplicationController
 
   def new
   	render 'new'
+  end
+
+  def show
+
   end
 
   def upload
