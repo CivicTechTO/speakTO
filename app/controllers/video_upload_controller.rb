@@ -4,7 +4,8 @@ class VideoUploadController < ApplicationController
   	render 'new'
   end
 
-  def create
+  def upload
+  	debugger
   end
 
 end
