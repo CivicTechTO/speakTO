@@ -1,16 +1,22 @@
 class Transcriber
-  include HTTParty
+  WIT_SCRIPT_PATH = Rails.root.join("app", "services", "transcribe.py")
+  OUTPUT_FILE = Rails.root.join("app", "services", "wit_output.txt")
 
   def initialize(audio_filepath)
     @audio_filepath = audio_filepath
-    @base_url = 'https://api.wit.ai/message'
-    @api_key = 'KGYGTEHJJZERAUVBPDQULMGBERGI5E4E'
   end
 
   def call
-    response = HTTParty.post(
-                             @base_url, 
-                             headers: { Authorization: "Bearer #{@api}"},
-                             query: { j})
+    run_python_script
+    read_output_file
   end
+
+  def run_python_script
+    %x(python #{WIT_SCRIPT_PATH} #{@audio_filepath} > #{OUTPUT_FILE})
+  end
+
+  def read_output_file
+    File.read(OUTPUT_FILE)
+  end
+
 end
