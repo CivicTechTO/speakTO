@@ -1,18 +1,22 @@
 class Transcriber
-  OUTPUT_FILE = './wit_output.txt'
+  WIT_SCRIPT_PATH = Rails.root.join("app", "services", "transcribe.py")
+  OUTPUT_FILE = Rails.root.join("app", "services", "wit_output.txt")
 
-  def self.call(audio_filepath)
-    run_python_script(audio_filepath)
+  def initialize(audio_filepath)
+    @audio_filepath = audio_filepath
+  end
+
+  def call
+    run_python_script
     read_output_file
   end
 
-  def run_python_script(audio_filepath)
-    %x(python transcribe.py #{audio_filepath} > #{OUTPUT_FILE})
+  def run_python_script
+    %x(python #{WIT_SCRIPT_PATH} #{@audio_filepath} > #{OUTPUT_FILE})
   end
 
   def read_output_file
-    text = File.read(OUTPUT_FILE)
-    binding.pry
+    File.read(OUTPUT_FILE)
   end
 
 end

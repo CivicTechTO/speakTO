@@ -1,8 +1,8 @@
 class VideoProcessingController < ApplicationController
   def transcribe
     audio_filepath = params['audio_filepath']
-    transcriber = Transcriber.new(audio_filepath)
-    text = transcriber.call
+    scriber = Transcriber.new(audio_filepath)
+    text = scriber.call
     render json: { status: :success, results: { transcription: text }}
   end
 
