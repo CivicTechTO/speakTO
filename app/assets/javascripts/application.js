@@ -14,3 +14,11 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+$(document).ready(function() {
+
+  // Event listeners
+  $('.videoContainer').change(function() {
+    debugger;
+  });
+});
