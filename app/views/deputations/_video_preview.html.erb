@@ -1,0 +1,4 @@
+<div class='video-preview' data-url=<%= deputation_path(deputation) %>>
+  <video src=<%= deputation.video.url %> ></video> 
+  <p><span class='subtitle'>Keywords</span> - <%=  deputation.keywords.map(&:text).join(', ') %></p>
+</div>
