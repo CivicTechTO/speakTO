@@ -1,6 +1,9 @@
 <div class="wrapper">
   <div class="notes">Extensions supported: .mp3, .mp4</div>
-  <div class="video-title">Hey! Upload your file here:</div>
+  <div class="video-title">
+    Hey! Upload your file here:
+    <sup><span style="font-size: 18px; text-transform: superscript;" class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></sup>
+  </div>
   <div class="loader-wrapper">
     <div class="loader">Loading...</div>
     <div class="file-upload">
@@ -11,3 +14,72 @@
 
   <div class="notifications"></div>
 </div>
+
+
+<div id="deputation-modal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">While we're waiting... </h4>
+      </div>
+      <div class="modal-body">
+        <p>Tell us a bit about yourself!</p>
+        <div class='form-group'>
+          <%= label_tag :first_name%>
+          <%= text_field_tag :name, nil, class: 'form-control' %>
+        </div>
+        <div class='form-group'>
+          <%= label_tag :last_name%>
+          <%= text_field_tag :name, nil, class: 'form-control' %>
+        </div>
+        <div class='form-group row'>
+          <div class='col-sm-6'>
+          <%= label_tag :postal_code%>
+          <%= text_field_tag :postal_code, nil, class: 'form-control' %>
+          </div>
+          <div class='col-sm-6' style='transform: translateY(32px)'>
+            <%= label_tag :make_public, 'Make postal code public' %>
+            <%= check_box_tag :make_public %>
+          </div>
+        </div>
+        <div class='form-group'>
+          <%= label_tag :occupation, 'Occupation (optional)'%>
+          <%= text_field_tag :occupation, nil, class: 'form-control' %>
+        </div>
+        <div class='form-group'>
+          <%= label_tag :agenda, 'Which agenda topic is your deputation related to?'%>
+          <%= text_field_tag :agenda, nil, class: 'form-control' %>
+          <%= link_to 'See the meeting agenda', 'http://app.toronto.ca/tmmis/meetingCalendarView.do?function=meetingCalendarView#current', target: 
+          '_blank' %>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary submit">Save</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="information-modal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Instructions</h4>
+      </div>
+      <div class="modal-body">
+        <ol>
+          <li>Select your agenda item.</li>
+          <li>Record your video in mp4 file format. Keep it under 3 minutes in duration.</li>
+          <li>Upload your file. </li>
+          <li>Your video will be screened for abusive language and relevance to the agenda subject topic and made public before the committee meeting starts. </li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
