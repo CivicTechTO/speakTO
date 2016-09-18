@@ -1,24 +1,10 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+System Dependencies:
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Rails 5.0
+* Ruby 2.3
+* Python 2.6
+* SpeechRecognition - https://pypi.python.org/pypi/SpeechRecognition/
+* FFMPEG - https://ffmpeg.org/
+* ImageMagick - http://www.imagemagick.org/script/command-line-tools.php
