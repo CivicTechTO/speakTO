@@ -1,9 +1,13 @@
 class LanguageProcessor
   include HTTParty
 
-  def initialize(text_filepath)
-    file_contents = File.read(text_filepath)
-    @text = CGI::escape(file_contents)
+  def initialize(text_filepath: nil, text: nil)
+    if text
+      @text = CGI::escape(text)
+    else
+      file_contents = File.read(text_filepath)
+      @text = CGI::escape(file_contents)
+    end
     @output = 'json'
     @base_url = 'https://gateway-a.watsonplatform.net/calls'
     @api_key = 'e642044fa6724367c8373801f0bd63a82be41c6c'
@@ -45,9 +49,9 @@ class LanguageProcessor
     results['keywords'].collect do |keyword|
       {
         text: keyword['text'],
-        relevance: keyword['relevance'],
+        relevance: keyword['relevance'].to_f,
         sentiment: keyword['sentiment']['type'],
-        sentiment_strength: keyword['sentiment']['score']
+        sentiment_strength: keyword['sentiment']['score'].to_f
       }
     end
   end

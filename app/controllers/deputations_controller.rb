@@ -5,20 +5,28 @@ class DeputationsController < ApplicationController
   end
 
   def show
-
+    @deputation = Deputation.includes(:concepts, :keywords).find(params[:id])
+    @video_src = @deputation.video.url
   end
 
-  def upload
-  	@file_name = params[:fname]
-  	@file_data = params[:data]
-  	@file_type = @file_data.content_type
-  	@file_object = @file_data.tempfile
+  def create
+    upload = upload_params[:video]
+    dep = Deputation.new
+    dep.video = upload
+    dep.save
+    dep.process_video
+    dep.save
+    render json: { status: :success, results: { deputation: dep, url: deputation_url(dep) }}
+  	# @file_name = params[:fname]
+  	# @file_data = params[:data]
+  	# @file_type = @file_data.content_type
+  	# @file_object = @file_data.tempfile
 
-    if (@file_type.isVideo)
-  	  applyVideoStrategy
-  	elsif (@file_type.isAudio)
-      applyAudioStrategy
-    end
+   #  if (@file_type.isVideo)
+  	#   applyVideoStrategy
+  	# elsif (@file_type.isAudio)
+   #    applyAudioStrategy
+   #  end
   end
 
   private
@@ -39,4 +47,9 @@ class DeputationsController < ApplicationController
   	binding.pry
   end
 
+  def upload_params
+    params.permit!
+  end
+
 end
+

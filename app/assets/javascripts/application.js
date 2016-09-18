@@ -29,9 +29,9 @@ $(document).ready(function() {
     }, 3000);
 
     var file = e.target.files[0];
-	var mime = file.type;
-	var rd = new FileReader();
-	var fileDuration;
+  	var mime = file.type;
+  	var rd = new FileReader();
+  	var fileDuration;
 
 	rd.onload = function(e) {
 	  var blob = new Blob([e.target.result], {
@@ -39,6 +39,7 @@ $(document).ready(function() {
 	    }),
 	    url = (URL || webkitURL).createObjectURL(blob),
 	    video = document.createElement("video");
+      audio = document.createElement("audio");
 
 	  video.preload = "metadata";
 	  video.addEventListener("loadedmetadata", function() {
@@ -46,47 +47,49 @@ $(document).ready(function() {
 	    (URL || webkitURL).revokeObjectURL(url);
 	  });
 	  video.src = url;
+    audio.src = url;
 	  if (fileDuration > MAX_FILE_DURATION) {
 	  	return;
 	  }
-      submitFile(blob);
+      submitFile(file);
 	};
 
-    rd.readAsArrayBuffer(file);
+    // rd.readAsArrayBuffer(file);
+    rd.readAsDataURL(file);
   });
 
-  function submitFile(blob) {
+  function submitFile(file) {
     var fd = new FormData();
-    fd.append('fname', 'video.mp4');
-    fd.append('data', blob);
+    fd.append('video', file);
 
     $.ajax({
-      url: "/upload",
+      url: "/deputations",
       type: "POST",
       data: fd,
       processData: false,
       contentType: false,
-      success: function() {
-      	$('.flashNotif').slideDown('slow')
-      	  .text('Upload successful!')
-      	  .removeClass('.success .fail')
-      	  .addClass('success');
+      success: function(response) {
+        $('.flashNotif').slideDown('slow')
+          .text('Upload successful!')
+          .removeClass('.success .fail')
+          .addClass('success');
 
         setTimeout(function () {
           $('.flashNotif').fadeOut('slow');
         }, 2400);
-      	return true;
+
+        window.location.replace(response.result.url)
       },
       error: function (e) {
-      	$('.flashNotif').slideDown('slow')
-      	  .text('Upload error!')
-      	  .removeClass('.success .fail')
-      	  .addClass('fail');
+        $('.flashNotif').slideDown('slow')
+          .text('Upload error!')
+          .removeClass('.success .fail')
+          .addClass('fail');
 
-      	setTimeout(function () {
+        setTimeout(function () {
           $('.flashNotif').fadeOut('slow');
         }, 2400);
-      	return true;
+        return true;
       }
     });
   }

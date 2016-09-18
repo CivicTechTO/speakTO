@@ -1,1 +1,23 @@
-Video Goes Here!
+<style>
+  body {
+    overflow-y: auto;
+  }
+</style>
+
+<video src=<%= @video_src %> controls></video> 
+<h2>Video transcript</h2>
+<p><%= @deputation.transcription %></p>
+
+<h2>Keywords</h2>
+<ul>
+<% @deputation.keywords.each do |kw| %>
+  <li><%= kw.text %> >>> Sentiment: <%= kw.sentiment %> </li>
+<% end %>
+</ul>
+
+<h2>Concepts</h2>
+<ul>
+<% @deputation.concepts.each do |concept| %>
+  <li><%= concept.text %></li>
+<% end %>
+</ul>
