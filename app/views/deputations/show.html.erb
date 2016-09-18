@@ -1,1 +1,34 @@
-Video Goes Here!
+<style>
+  body {
+    overflow-y: auto;
+    font-family: 'Raleway';
+    font-size: 18px;
+    color: #FFFFFF;
+  }
+
+</style>
+
+<div class='video-player'>
+  <video src=<%= @video_src %> controls></video> 
+</div>
+
+<div class='video-information'>
+  <div class='information-column'>
+    <div class="transcript">
+      <p><span class='subtitle'>Video Transcript</span> - <%= @deputation.transcription %></p>
+    </div>
+
+    <div class="concepts">
+      <p><span class='subtitle'>Concepts</span> - <%= @concepts %></p>
+    </div>
+  </div>
+
+  <div class='information-column'>
+    <p class='subtitle'>Keywords and Sentiment Analysis</p>
+    <ul class='list-unstyled'>
+    <% @deputation.keywords.each do |kw| %>
+      <li><%= kw.text %> - <span class=<%= kw.sentiment %>><%= kw.sentiment %></span> (strength: <%= kw.sentiment_strength %>) </li>
+    <% end %>
+    </ul>
+  </div>
+</div>

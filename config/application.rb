@@ -14,3 +14,5 @@ module Tplhack
     config.autoload_paths += %W(\#{config.root}/lib)
   end
 end
+
+# Paperclip.options[:command_path] = "/usr/local/bin/identify"

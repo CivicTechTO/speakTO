@@ -1,0 +1,26 @@
+<style>
+  body {
+    overflow-y: auto;
+    font-family: 'Raleway';
+    font-size: 18px;
+    color: #FFFFFF;
+  }
+
+</style>
+
+<div class='video-list-title''>
+  <h1>Deputations</h1>
+</div>
+<div class='videos-list'>
+  <% @deputations.each do |deputation| %>
+    <%= render 'video_preview', deputation: deputation %>
+  <% end %>
+</div>
+
+
+<script type="text/javascript">
+  $('.video-preview').on('click', function(e) {
+    var url = $(e.currentTarget).data('url');
+    window.location.href = url;
+  })
+</script>
