@@ -41,7 +41,6 @@ $(document).ready(function() {
 	    }),
 	    url = (URL || webkitURL).createObjectURL(blob),
 	    video = document.createElement("video");
-      audio = document.createElement("audio");
 
 	  video.preload = "metadata";
 	  video.addEventListener("loadedmetadata", function() {
@@ -49,7 +48,6 @@ $(document).ready(function() {
 	    (URL || webkitURL).revokeObjectURL(url);
 	  });
 	  video.src = url;
-    audio.src = url;
 	  if (fileDuration > MAX_FILE_DURATION) {
 	  	return;
 	  }
@@ -85,7 +83,7 @@ $(document).ready(function() {
       error: function (e) {
         $('div.loader').hide();
         $('div.file-upload').show();
-        
+
         $('.flashNotif').slideDown('slow')
           .text('Upload error!')
           .removeClass('.success .fail')

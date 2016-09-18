@@ -1,11 +1,16 @@
 class DeputationsController < ApplicationController
 
+  def index
+    @deputations = Deputation.includes(:concepts, :keywords).where.not(transcription: nil).order(created_at: :desc)
+  end
+
   def new
   	render 'new'
   end
 
   def show
     @deputation = Deputation.includes(:concepts, :keywords).find(params[:id])
+    @concepts = @deputation.concepts.map(&:text).join(', ')
     @video_src = @deputation.video.url
   end
 
