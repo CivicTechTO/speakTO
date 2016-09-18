@@ -6,9 +6,9 @@ class Deputation < ApplicationRecord
 
   def process_video
     video_filepath = self.video.path
-    audio_filepath = VideoToAudio.call(video_filepath)
+    VideoToAudio.call(video_filepath)
     # audio_filepath = Rails.root.join("spec", "fixtures", "call_everybody.wav")
-    scriber = Transcriber.new audio_filepath
+    scriber = Transcriber.new VideoToAudio::AUDIO_OUTPUT_FILEPATH
     text = scriber.call
 
     self.transcription = text

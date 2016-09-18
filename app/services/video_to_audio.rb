@@ -1,9 +1,9 @@
 class VideoToAudio
+  AUDIO_OUTPUT_FILEPATH = Rails.root.join("tmp", "audio_output.wav")
 
   def self.call(file_path)
-    binding.pry
     video = FFMPEG::Movie.new(file_path)
-    audio = video.transcode( "audio_extract.mp3", :ab => 128 )
+    video.transcode( AUDIO_OUTPUT_FILEPATH.to_s, :ab => 128 )
   end
 
 end

@@ -21,6 +21,8 @@ var MAX_FILE_DURATION = 120;
 $(document).ready(function() {
 
   $('#videoContainer').change(function(e) {
+    $('div.file-upload').hide();
+    $('div.loader').show();
     var filePath = $(this)[0].value;
     var fileName = filePath.split(/(\\|\/)/g).pop();
     $('.notifications').text(fileName).fadeIn('slow');
@@ -81,6 +83,9 @@ $(document).ready(function() {
         window.location.replace(response.result.url)
       },
       error: function (e) {
+        $('div.loader').hide();
+        $('div.file-upload').show();
+        
         $('.flashNotif').slideDown('slow')
           .text('Upload error!')
           .removeClass('.success .fail')
