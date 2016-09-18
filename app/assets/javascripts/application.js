@@ -23,6 +23,7 @@ $(document).ready(function() {
   $('#videoContainer').change(function(e) {
     $('div.file-upload').hide();
     $('div.loader').show();
+
     var filePath = $(this)[0].value;
     var fileName = filePath.split(/(\\|\/)/g).pop();
     $('.notifications').text(fileName).fadeIn('slow');
@@ -41,7 +42,6 @@ $(document).ready(function() {
 	    }),
 	    url = (URL || webkitURL).createObjectURL(blob),
 	    video = document.createElement("video");
-      audio = document.createElement("audio");
 
 	  video.preload = "metadata";
 	  video.addEventListener("loadedmetadata", function() {
@@ -49,15 +49,13 @@ $(document).ready(function() {
 	    (URL || webkitURL).revokeObjectURL(url);
 	  });
 	  video.src = url;
-    audio.src = url;
 	  if (fileDuration > MAX_FILE_DURATION) {
 	  	return;
 	  }
       submitFile(file);
 	};
 
-    // rd.readAsArrayBuffer(file);
-    rd.readAsDataURL(file);
+    rd.readAsArrayBuffer(file);
   });
 
   function submitFile(file) {
@@ -85,7 +83,7 @@ $(document).ready(function() {
       error: function (e) {
         $('div.loader').hide();
         $('div.file-upload').show();
-        
+
         $('.flashNotif').slideDown('slow')
           .text('Upload error!')
           .removeClass('.success .fail')

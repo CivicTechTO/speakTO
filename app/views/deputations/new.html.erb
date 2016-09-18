@@ -1,10 +1,12 @@
 <div class="wrapper">
   <div class="notes">Extensions supported: .mp3, .mp4</div>
   <div class="video-title">Hey! Upload your file here:</div>
-  <div class="loader">Loading...</div>
-  <div class="file-upload">
-    <%= file_field_tag 'videoContainer', accept: 'video/*, audio/*' %>
-    <i class="fa fa-arrow-up"></i>
+  <div class="loader-wrapper">
+    <div class="loader">Loading...</div>
+    <div class="file-upload">
+      <%= file_field_tag 'videoContainer', accept: 'video/*, audio/*' %>
+      <i class="fa fa-arrow-up"></i>
+    </div>
   </div>
 
   <div class="notifications"></div>
