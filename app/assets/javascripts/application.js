@@ -20,6 +20,29 @@ var MAX_FILE_DURATION = 120;
 
 $(document).ready(function() {
 
+  var formReady = false;
+  var videoReady = false;
+  var videoUrl = '';
+  var deputationId = '';
+
+  $('.glyphicon-info-sign').on('click', function() { 
+    $('#information-modal').modal('show');
+  });
+
+  $('#deputation-modal .submit').on('click', function(e) {
+    e.preventDefault();
+    var fd = new FormData();
+    fd.append('first_name', $('#first_name').val());
+    fd.append('last_name', $('#last_name').val());
+    fd.append('postal_code', $('#postal_code').val());
+    fd.append('make_public', $('#make_public').val());
+    fd.append('agenda', $('#agenda').val());
+    fd.append('occupation', $('#occupation').val());
+    fd.append('current_deputation_id', deputationId);
+    // submitForm(fd);
+    $('#deputation-modal').modal('hide');
+  })
+
   $('#videoContainer').change(function(e) {
     $('div.file-upload').hide();
     $('div.loader').show();
@@ -29,6 +52,7 @@ $(document).ready(function() {
     $('.notifications').text(fileName).fadeIn('slow');
     setTimeout(function() {
       $('.notifications').fadeOut('slow');
+      $('#deputation-modal').modal('show');
     }, 3000);
 
     var file = e.target.files[0];
@@ -61,6 +85,7 @@ $(document).ready(function() {
   function submitFile(file) {
     var fd = new FormData();
     fd.append('video', file);
+    fd.append('current_deputation_id', deputationId);
 
     $.ajax({
       url: "/deputations",
@@ -69,6 +94,10 @@ $(document).ready(function() {
       processData: false,
       contentType: false,
       success: function(response) {
+        videoUrl = response.result.url;
+        deputationId = response.result.id;
+        videoReady = true;
+
         $('.flashNotif').slideDown('slow')
           .text('Upload successful!')
           .removeClass('.success .fail')
@@ -77,8 +106,9 @@ $(document).ready(function() {
         setTimeout(function () {
           $('.flashNotif').fadeOut('slow');
         }, 2400);
-
-        window.location.replace(response.result.url)
+        
+        window.location.href = response.result.url;
+        // redirectToDeputation();
       },
       error: function (e) {
         $('div.loader').hide();
@@ -101,5 +131,29 @@ $(document).ready(function() {
   	// send progress to upload circle
   	return true;
   }
+
+  function redirectToDeputation() {
+    if(formReady && videoReady && videoUrl !== '') {
+      window.location.href = videoUrl;
+    }
+  }
+
+  // function submitForm(formData) {
+  //   $.ajax({
+  //     url: "/deputations",
+  //     type: "POST",
+  //     data: formData,
+  //     processData: false,
+  //     contentType: false,
+  //     success: function(response) {
+  //       deputationId = response.result.id;
+  //       formReady = true;
+  //       redirectToDeputation();
+  //     },
+  //     error: function (e) {
+  //       console.log(e)
+  //     }
+  //   });
+  // }
 
 });
