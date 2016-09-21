@@ -158,4 +158,28 @@ $(document).ready(function() {
     });
   };
 
+  function redirectToDeputation() {
+    if(formReady && videoReady && videoUrl !== '') {
+      window.location.href = videoUrl;
+    }
+  }
+
+  // function submitForm(formData) {
+  //   $.ajax({
+  //     url: "/deputations",
+  //     type: "POST",
+  //     data: formData,
+  //     processData: false,
+  //     contentType: false,
+  //     success: function(response) {
+  //       deputationId = response.result.id;
+  //       formReady = true;
+  //       redirectToDeputation();
+  //     },
+  //     error: function (e) {
+  //       console.log(e)
+  //     }
+  //   });
+  // }
+
 });
