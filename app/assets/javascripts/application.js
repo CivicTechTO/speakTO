@@ -16,6 +16,7 @@
 //= require_tree .
 
 // GLOBALS
+
 var MAX_FILE_DURATION = 120;
 
 $(document).ready(function() {
@@ -41,6 +42,8 @@ $(document).ready(function() {
     fd.append('current_deputation_id', deputationId);
     // submitForm(fd);
     $('#deputation-modal').modal('hide');
+    formReady = true;
+    redirectToDeputation();
   })
 
   $('#videoContainer').change(function(e) {
@@ -106,9 +109,8 @@ $(document).ready(function() {
         setTimeout(function () {
           $('.flashNotif').fadeOut('slow');
         }, 2400);
-        
-        window.location.href = response.result.url;
-        // redirectToDeputation();
+
+        redirectToDeputation();
       },
       error: function (e) {
         $('div.loader').hide();
@@ -125,35 +127,35 @@ $(document).ready(function() {
         return true;
       }
     });
-  }
+  };
 
   function progressHandlingFunction() {
   	// send progress to upload circle
   	return true;
-  }
+  };
 
   function redirectToDeputation() {
     if(formReady && videoReady && videoUrl !== '') {
       window.location.href = videoUrl;
     }
-  }
+  };
 
-  // function submitForm(formData) {
-  //   $.ajax({
-  //     url: "/deputations",
-  //     type: "POST",
-  //     data: formData,
-  //     processData: false,
-  //     contentType: false,
-  //     success: function(response) {
-  //       deputationId = response.result.id;
-  //       formReady = true;
-  //       redirectToDeputation();
-  //     },
-  //     error: function (e) {
-  //       console.log(e)
-  //     }
-  //   });
-  // }
+  function submitForm(formData) {
+    $.ajax({
+      url: "/deputations/" + deputationId,
+      type: "PATCH",
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: function(response) {
+        deputationId = response.result.deputation.id;
+        formReady = true;
+        redirectToDeputation();
+      },
+      error: function (e) {
+        console.log(e)
+      }
+    });
+  };
 
 });

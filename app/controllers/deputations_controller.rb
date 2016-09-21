@@ -28,6 +28,17 @@ class DeputationsController < ApplicationController
     end
   end
 
+  def update
+    dep = Deputation.find(upload_params[:id])
+    dep.update_attributes(upload_params)
+    begin 
+      dep.save!
+      render json: { status: :success, result: { deputation: dep, url: deputation_url(dep) }}
+    rescue
+      render json: { status: :unprocessable_entity }, status: 500
+    end
+  end
+
   private
 
   def upload_params

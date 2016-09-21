@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root 'deputations#new'
 
-  resources :deputations, only: [:index, :new, :create, :show]
+  resources :deputations, only: [:index, :new, :create, :show, :update]
 
   get 'transcribe', to: 'audio_processing#transcribe'
   get 'keywords', to: 'audio_processing#keywords'
